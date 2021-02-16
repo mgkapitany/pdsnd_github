@@ -8,7 +8,7 @@ February 15, 2021
 > "In this project, you will make use of Python to explore data related to bike share systems for three major cities in the United States—Chicago, New York City, and Washington. You will write code to import the data and answer interesting questions about it by computing descriptive statistics. You will also write a script that takes in raw input to create an interactive experience in the terminal to present these statistics." - Udacity Project Page
 
 ### Files used
-* [Wrangled Data Sets on Chicago, New York City, and Washington from Udacity](https://video.udacity-data.com/topher/2018/March/5aab379c_bikeshare-2/bikeshare-2.zip/)
+* *Wrangled Data Sets on Chicago, New York City, and Washington from Udacity*
 * [Original Data from Divvy Bikes Website](https://www.divvybikes.com/system-data)
 
 ### Credits - thank you stackoverflow
