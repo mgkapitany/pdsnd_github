@@ -304,49 +304,32 @@ def raw_data(df):
 
 def quest(df):
     """ Asks user to specify what statistics they would like to see, or if they'd like to see raw data"""
-    while True:
-        try:
-            print("""
-            What would you like to examine today?
-            1 - Display statistics on the most frequent times of travel
-            2 - Display statistics on the most popular stations and trip
-            3 - Display statistics on the total and average trip duration
-            4 - Display statistics on bike share users
-            5 - Show me raw trip data
-            6 - Exit the program
-            """)
-            selection = input("Please enter your selection by the corresponding number e.g. 4=bike share users ")
-        except KeyboardInterrupt:
-            print("Please don't interrupt - no input taken.")
-            print()
-            continue
-        except ValueError:
-            print("Sorry, I didn't understand that.")
-            print()
-            continue
 
-        if selection not in ['1', '2', '3', '4', '5', '6']:
-            # validates input against expected values
-            print("Your input was invalid - please try again.")
-            print()
-            continue
-        elif selection == '1':
-            time_stats(df)
-            break
-        elif selection == '2':
-            station_stats(df)
-            break
-        elif selection == '3':
-            trip_duration_stats(df)
-            break
-        elif selection == '4':
-            user_stats(df)
-            break
-        elif selection == '5':
-            raw_data(df)
-            break
-        else:
-            break
+    print("""
+    What would you like to examine today?
+    1 - Display statistics on the most frequent times of travel
+    2 - Display statistics on the most popular stations and trip
+    3 - Display statistics on the total and average trip duration
+    4 - Display statistics on bike share users
+    5 - Show me raw trip data
+    6 - Exit the program
+    """)
+
+    question = "Please enter your selection by the corresponding number e.g. 4=bike share users "
+    selection = input_valid(question, ['1', '2', '3', '4', '5', '6'])
+
+    if selection == '1':
+        time_stats(df)
+    elif selection == '2':
+        station_stats(df)
+    elif selection == '3':
+        trip_duration_stats(df)
+    elif selection == '4':
+        user_stats(df)
+    elif selection == '5':
+        raw_data(df)
+    else:
+        print('Exiting...')
 
 
 def main():
