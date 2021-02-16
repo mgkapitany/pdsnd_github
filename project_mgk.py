@@ -135,15 +135,15 @@ def load_data(city, month, day):
     if month != 'all':
         # use the index of the months list to get the corresponding int
         months = ['January', 'February', 'March', 'April', 'May', 'June']
-        month_int = months.index(month.title()) + 1
         # Month goes from 1 to 12 inclusive, need to add 1 to index accordingly
+        month_int = months.index(month.title()) + 1
 
         # filter by month to create the new dataframe
         df = df[(df['month'] == month_int)]
 
     # filter by day of week if applicable
     if day != 'all':
-        # use the index of the weekdays list to get the corresponding int
+        # use the index of the weekdays list to get the corresponding int - Python starts with 0=Monday
         weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
         day_int = weekdays.index(day.title())
 
@@ -195,7 +195,7 @@ def time_stats(df):
     popular_hour = df['start_hour'].mode().values[0]
     print("The most common start hour is {}.".format(popular_hour))
 
-    print("\nThis took %s seconds." % (time.time() - start_time))
+    print("\nThis took %s seconds." % round(time.time() - start_time, 2))
     print('-'*40)
 
 
@@ -218,7 +218,7 @@ def station_stats(df):
     popular_combo = df.groupby(['Start Station', 'End Station']).size().idxmax()
     print("The most popular start-end trip is {}.".format(popular_combo))
 
-    print("\nThis took %s seconds." % (time.time() - start_time))
+    print("\nThis took %s seconds." % round(time.time() - start_time, 2))
     print('-'*40)
 
 
@@ -240,7 +240,7 @@ def trip_duration_stats(df):
     avg_time = df['Trip Duration'].mean()
     print("The average travel time of the selected trips is {}".format(avg_time))
 
-    print("\nThis took %s seconds." % (time.time() - start_time))
+    print("\nThis took %s seconds." % round(time.time() - start_time, 2))
     print('-'*40)
 
 
@@ -283,7 +283,7 @@ def user_stats(df):
     else:
         print("Birth Year is not available for this dataset.")
 
-    print("\nThis took %s seconds." % (time.time() - start_time))
+    print("\nThis took %s seconds." % round(time.time() - start_time, 2))
     print('-'*40)
 
 
