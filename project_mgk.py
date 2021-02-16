@@ -11,7 +11,7 @@ CITY_DATA = {'chicago': 'chicago.csv',
              'washington': 'washington.csv'}
 
 
-def input_validation(input_question, input_expected):
+def input_valid(input_question, input_expected):
     """
     Validates input against standard exception errors and expected values.
 
@@ -46,7 +46,6 @@ def input_validation(input_question, input_expected):
         else:
             break
 
-    print('-' * 40)
     return user_input
 
 
@@ -293,8 +292,8 @@ def raw_data(df):
     i = 0
     while i < df.shape[0]:
         print(df[i:i+5])
-        view_more = input('\n Would you like to see more? Enter yes or no. ')
-        if view_more.lower() == 'yes':
+        view_more = input_valid('\n Would you like to see more? Enter y/n: ', ['y', 'n'])
+        if view_more == 'y':
             i += 5
             continue
         else:
@@ -342,8 +341,8 @@ def main():
         while True:
             quest(df)
             all_done = input_valid('\nWould you like to go back and examine something else? Enter y/n: ', ['y', 'n'])
-            print('-' * 40)
             if all_done != 'y':
+                print('-' * 40)
                 break
 
         restart = input_valid('\nWould you like to restart and change your filters? Enter y/n. ', ['y', 'n'])
