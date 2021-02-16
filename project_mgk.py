@@ -341,13 +341,13 @@ def main():
 
         while True:
             quest(df)
-            all_done = input('\nWould you like to go back and examine something else? Enter yes or no. ')
+            all_done = input_valid('\nWould you like to go back and examine something else? Enter y/n: ', ['y', 'n'])
             print('-' * 40)
-            if all_done.lower() != 'yes':
+            if all_done != 'y':
                 break
 
-        restart = input('\nWould you like to restart and change your filters? Enter yes or no. ')
-        if restart.lower() != 'yes':
+        restart = input_valid('\nWould you like to restart and change your filters? Enter y/n. ', ['y', 'n'])
+        if restart != 'y':
             print("""
              o__         __o       __o
              ,>/_      _ V<_    _ V<_
