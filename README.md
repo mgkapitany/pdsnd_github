@@ -1,9 +1,8 @@
-### Date created
-February 15, 2021 Python Project
-for Udacity Programming for Data Science Nanodegree 
+# Python Project
+for Udacity Programming for Data Science Nanodegree
 
-### Project Title
-Replace the Project Title
+### Date created
+February 15, 2021
 
 ### Description
 Describe what your project is about and what it does
