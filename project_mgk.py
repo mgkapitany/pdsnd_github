@@ -22,6 +22,9 @@ def input_validation(input_question, input_expected):
         (str) user_input - validated input
     """
     input_expected = [x.lower() for x in input_expected]
+    # Use a while loop to handle invalid inputs
+    # heavy inspiration from the following excellent stackoverflow post
+    # https://stackoverflow.com/questions/23294658/
 
     while True:
         try:
@@ -58,17 +61,12 @@ def get_filters():
     """
 
     print('Hello! Let\'s explore some US Bike Share data!')
-    # get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
-    # heavy inspiration from the following excellent stackoverflow post
-    # https://stackoverflow.com/questions/23294658/
-
-    question = "Which city would you like to analyze? Chicago, New York City, or Washington: "
-    expected = ['chicago', 'new york city', 'washington']
+    cities = ['Chicago', 'New York City', 'Washington']
 
     while True:
-        city = input_validation(question, expected)
-        confirm = input("Just to confirm - {}? Y/N ".format(city.title()))
-        if confirm == "Y" or confirm == "Yes":
+        city = input_valid("Which city would you like to analyze? Chicago, New York City, or Washington: ", cities)
+        confirm = input_valid("Just to confirm - {}? Enter y/n ".format(city.title()), ['y', 'n'])
+        if confirm == 'y':
             # input is successfully parsed, let's exit the loop
             print("Awesome - time to dive into the data!")
             print()
@@ -78,81 +76,35 @@ def get_filters():
             print()
             continue
 
-    """
-    while True:
-        try:
-            city = (input("Which city would you like to analyze? Chicago, New York City, or Washington: ")).lower()
-        except KeyboardInterrupt:
-            print("Please don't interrupt - no input taken.")
-            print()
-            continue
-        except ValueError:
-            print("Sorry, I didn't understand that.")
-            print()
-            continue
-
-        if city not in ['chicago', 'new york city', 'washington']:
-            # validates input against expected values
-            print("Your input was invalid - please try again.")
-            print()
-            continue
-        else:
-            confirm = input("Just to confirm - {}? Y/N ".format(city.title()))
-            if confirm == "Y" or confirm == "Yes":
-                # input is successfully parsed, let's exit the loop
-                print("Awesome - time to dive into the data!")
-                print()
-                break
-            else:
-                # back to the top, we'll ask again
-                print()
-                continue
-    """
-
     # get user input for time filters
-    print("Would you like to filter the data by month, day, both, or none at all?")
-    while True:
-        try:
-            time_filter = (input("Type 'none' for no time filter. ")).lower()
-        except KeyboardInterrupt:
-            print("Please don't interrupt - no input taken.")
-            print()
-            continue
-        except ValueError:
-            print("Sorry, I didn't understand that.")
-            print()
-            continue
+    # listing out time filters based on what's available with the dataset
+    filters = ['month', 'day', 'both', 'none']
+    months = ['January', 'February', 'March', 'April', 'May', 'June']
+    days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
-        if time_filter not in ['month', 'day', 'both', 'none']:
-            # validates input against expected values
-            print("Your input was invalid - please try again.")
-            print()
-            continue
-        elif time_filter == 'none':
-            month = 'all'
-            day = 'all'
-            print("Alright, we\'ll move forward with no filters applied.")
-            print()
-            break
-        elif time_filter == 'both':
-            month = (input("\nWhich month? January, February, March, April, May, or June? "))
-            day = (input("Which weekday? Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, or Saturday? "))
-            print("Alright, we\'ll filter for {}s in {}.".format(day, month))
-            print()
-            break
-        elif time_filter == 'month':
-            month = (input("\nWhich month? January, February, March, April, May, or June? "))
-            day = 'all'
-            print("Alright, we\'ll filter only for {}.".format(month))
-            print()
-            break
-        else:
-            day = (input("\nWhich weekday? Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, or Saturday? "))
-            month = 'all'
-            print("Alright, we\'ll filter only for {}s.".format(day))
-            print()
-            break
+    question = "Would you like to filter the data by month, day, or both? Type 'none' for no time filter: "
+    time_filter = input_valid(question, filters)
 
+    if time_filter == 'none':
+        month = 'all'
+        day = 'all'
+        print("Alright, we\'ll move forward with no filters applied.")
+        print()
+    elif time_filter == 'both':
+        month = input_valid("\nWhich month? January, February, March, April, May, or June? ", months)
+        day = input_valid("Which weekday? Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, or Saturday? ", days)
+        print("Alright, we\'ll filter for {}s in {}.".format(day.title(), month.title()))
+        print()
+    elif time_filter == 'month':
+        month = input_valid("\nWhich month? January, February, March, April, May, or June? ", months)
+        day = 'all'
+        print("Alright, we\'ll filter only for {}.".format(month.title()))
+        print()
+    else:
+        day = input_valid("Which weekday? Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, or Saturday? ", days)
+        month = 'all'
+        print("Alright, we\'ll filter only for {}s.".format(day.title()))
+        print()
     print('-'*40)
     return city, month, day
 
@@ -416,7 +368,7 @@ def main():
             print("""
              o__         __o       __o
              ,>/_      _ V<_    _ V<_
-            (*)`(*)...(_)/(_)...(_)/(_)            
+            (*)`(*)...(_)/(_)...(_)/(_)
             """)
             # Cycling ASCII art from https://www.asciiart.eu/sports-and-outdoors/cycling
             print("Bye for now!")
